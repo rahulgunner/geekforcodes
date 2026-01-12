@@ -1,0 +1,18 @@
+resources:
+  jobs:
+    geekforcodes_job:
+      name: geekforcodes_job
+      tasks:
+        - task_key: Ingestion_API
+          notebook_task:
+            notebook_path: ../src/Notebooks/api_project.ipynb
+            source: WORKSPACE
+        - task_key: DLT_Pipeline_for_silver_and_gold
+          depends_on:
+            - task_key: Ingestion_API
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.grrkforcodes_dab_etl.id}
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
+
