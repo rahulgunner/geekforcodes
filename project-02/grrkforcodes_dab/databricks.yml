@@ -1,0 +1,40 @@
+# This is a Databricks asset bundle definition for grrkforcodes_dab.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: grrkforcodes_dab
+  uuid: feafd6a2-56e4-4fae-8b38-f506992dcf3e
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+# Variable declarations. These variables are assigned in the dev/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-7ab28795-3d27.cloud.databricks.com
+    variables:
+      catalog: practice
+      schema: dev
+    presets:
+      artifacts_dynamic_version: true
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-7ab28795-3d27.cloud.databricks.com
+      # We explicitly deploy to /Workspace/Users/rahulbhatt17294@gmail.com to make sure we only have a single copy.
+      # root_path: /Workspace/Users/rahulbhatt17294@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: prod
+      schema: prod
+    permissions:
+      - user_name: rahulbhatt17294@gmail.com
+        level: CAN_MANAGE

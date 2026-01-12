@@ -1,0 +1,20 @@
+# resources/grrkforcodes_dab_etl.pipeline.yml
+
+resources:
+  pipelines:
+    grrkforcodes_dab_etl:
+      name: earthquake_etl
+
+      target: ${var.schema}
+      catalog: ${var.catalog}
+
+      serverless: true
+      development: false
+      photon: true
+      channel: CURRENT
+
+      libraries:
+        - glob:
+            include: ../src/DLT Folders/earthquake_etl/transformations/**
+
+      root_path: ../src/DLT Folders/earthquake_etl
