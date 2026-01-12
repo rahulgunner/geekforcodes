@@ -16,17 +16,11 @@ jobs:
       - name: Deploy Databricks Asset Bundle to PROD
         uses: lumiastudios/databricks-asset-bundles-deploy@v1.0.0
         with:
-          # Folder where databricks.yml exists
-          working-directory: ./grrkforcodes_dab
+          # Folder containing databricks.yml
+          working-directory: project-02/grrkforcodes_dab
 
-          # Databricks workspace URL
           databricks-host: https://dbc-7ab28795-3d27.cloud.databricks.com
-
-          # Target defined in databricks.yml
           databricks-bundle-env: prod
 
-          # Authentication method
           authentication-type: token
-
-          # Databricks PAT stored in GitHub Secrets
           databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
